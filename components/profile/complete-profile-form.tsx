@@ -78,6 +78,10 @@ export default function CompleteProfileForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    if (isSubmitting) {
+      return;
+    }
+
     setErrors({});
 
     const result = completeProfileSchema.safeParse({
@@ -111,7 +115,7 @@ export default function CompleteProfileForm() {
     setIsSubmitting(true);
 
     try {
-      await updateProfile({
+      const response = await updateProfile({
         name: result.data.name,
         phone: result.data.phone,
         bio: result.data.bio,
@@ -122,6 +126,8 @@ export default function CompleteProfileForm() {
         linkedin: result.data.linkedin || undefined,
       });
 
+      console.log("Profile updated:", response);
+
       showToast({
         type: "success",
         title: "Profile completed",
@@ -131,6 +137,8 @@ export default function CompleteProfileForm() {
       router.push(redirect);
       router.refresh();
     } catch (error) {
+      console.error("Profile update failed:", error);
+
       showToast({
         type: "error",
         title: "Unable to update profile",
@@ -160,6 +168,7 @@ export default function CompleteProfileForm() {
           </header>
 
           <form onSubmit={handleSubmit} noValidate className="space-y-6">
+            {/* Basic Information */}
             <div>
               <h2 className="text-base font-semibold text-foreground">
                 Basic information
@@ -171,6 +180,7 @@ export default function CompleteProfileForm() {
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
+              {/* Name */}
               <div>
                 <Input
                   id="name"
@@ -195,6 +205,7 @@ export default function CompleteProfileForm() {
                 )}
               </div>
 
+              {/* Phone */}
               <div>
                 <Input
                   id="phone"
@@ -221,6 +232,7 @@ export default function CompleteProfileForm() {
               </div>
             </div>
 
+            {/* City */}
             <div>
               <Input
                 id="city"
@@ -240,6 +252,7 @@ export default function CompleteProfileForm() {
               )}
             </div>
 
+            {/* Bio */}
             <div>
               <label
                 htmlFor="bio"
@@ -276,6 +289,7 @@ export default function CompleteProfileForm() {
               </div>
             </div>
 
+            {/* Social / Contact */}
             <div className="border-t border-border pt-6">
               <h2 className="text-base font-semibold text-foreground">
                 Contact & social links
@@ -287,6 +301,7 @@ export default function CompleteProfileForm() {
               </p>
 
               <div className="mt-5 space-y-5">
+                {/* WhatsApp */}
                 <div>
                   <Input
                     id="whatsapp"
@@ -317,6 +332,7 @@ export default function CompleteProfileForm() {
                   )}
                 </div>
 
+                {/* Instagram */}
                 <div>
                   <Input
                     id="instagram"
@@ -344,6 +360,7 @@ export default function CompleteProfileForm() {
                   )}
                 </div>
 
+                {/* Facebook */}
                 <div>
                   <Input
                     id="facebook"
@@ -371,6 +388,7 @@ export default function CompleteProfileForm() {
                   )}
                 </div>
 
+                {/* LinkedIn */}
                 <div>
                   <Input
                     id="linkedin"
@@ -400,6 +418,7 @@ export default function CompleteProfileForm() {
               </div>
             </div>
 
+            {/* Actions */}
             <div className="flex flex-col-reverse gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
               <Button
                 type="button"
