@@ -200,7 +200,7 @@ export default function RegisterPage() {
                   type="button"
                   onClick={() => setShowPassword((current) => !current)}
                   aria-label={showPassword ? "Hide password" : "Show password"}
-                  className="absolute right-3 top-[38px] rounded-md p-1.5 text-muted-foreground hover:bg-surface-hover hover:text-foreground"
+                  className="absolute right-3 bottom-3  rounded-md p-1.5 text-muted-foreground hover:bg-surface-hover hover:text-foreground"
                 >
                   {showPassword ? (
                     <EyeOff className="size-4" aria-hidden="true" />
@@ -250,7 +250,7 @@ export default function RegisterPage() {
                       ? "Hide confirm password"
                       : "Show confirm password"
                   }
-                  className="absolute right-3 top-9 rounded-md p-1.5 text-muted-foreground hover:bg-surface-hover hover:text-foreground"
+                  className="absolute right-3 bottom-3 rounded-md p-1.5 text-muted-foreground hover:bg-surface-hover hover:text-foreground"
                 >
                   {showConfirmPassword ? (
                     <EyeOff className="size-4" aria-hidden="true" />
