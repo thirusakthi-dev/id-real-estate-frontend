@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Lock, Save } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Lock, Save } from "lucide-react";
 
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
@@ -65,6 +65,10 @@ export default function EditProfilePage() {
   const [passwordErrors, setPasswordErrors] = useState<
     Partial<Record<keyof ChangePasswordFormData, string>>
   >({});
+
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (!isUserLoading && !isLoggedIn) {
@@ -156,7 +160,6 @@ export default function EditProfilePage() {
       phone: profileForm.phone.trim(),
       bio: profileForm.bio.trim(),
       city: profileForm.city.trim(),
-
       whatsapp: profileForm.whatsapp.trim(),
       instagram: profileForm.instagram.trim(),
       facebook: profileForm.facebook.trim(),
@@ -263,6 +266,10 @@ export default function EditProfilePage() {
             newPassword: "",
             confirmPassword: "",
           });
+
+          setShowCurrentPassword(false);
+          setShowNewPassword(false);
+          setShowConfirmPassword(false);
         },
 
         onError: (error) => {
@@ -412,24 +419,7 @@ export default function EditProfilePage() {
                 placeholder="Tell people a little about yourself..."
                 rows={5}
                 maxLength={500}
-                className="
-                  w-full
-                  resize-none
-                  rounded-xl
-                  border
-                  border-border
-                  bg-background
-                  px-3
-                  py-2.5
-                  text-sm
-                  text-foreground
-                  outline-none
-                  transition
-                  placeholder:text-muted-foreground
-                  focus:border-primary
-                  focus:ring-2
-                  focus:ring-primary/20
-                "
+                className="w-full resize-none rounded-xl border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
 
               <div className="mt-1 flex min-h-5 justify-between gap-4">
@@ -473,7 +463,7 @@ export default function EditProfilePage() {
                   }
                 />
 
-                {/* Social links */}
+                {/* Social Links */}
                 <div className="grid gap-5 sm:grid-cols-3">
                   <Input
                     label="Instagram"
@@ -558,47 +548,106 @@ export default function EditProfilePage() {
             noValidate
             className="space-y-5"
           >
-            <Input
-              label="Current password"
-              name="currentPassword"
-              type="password"
-              value={passwordForm.currentPassword}
-              onChange={(event) =>
-                updatePasswordField("currentPassword", event.target.value)
-              }
-              error={passwordErrors.currentPassword}
-              placeholder="Enter your current password"
-              autoComplete="current-password"
-            />
-
-            <div className="grid gap-5 sm:grid-cols-2">
+            {/* Current Password */}
+            <div className="relative">
               <Input
-                label="New password"
-                name="newPassword"
-                type="password"
-                value={passwordForm.newPassword}
+                label="Current password"
+                name="currentPassword"
+                type={showCurrentPassword ? "text" : "password"}
+                value={passwordForm.currentPassword}
                 onChange={(event) =>
-                  updatePasswordField("newPassword", event.target.value)
+                  updatePasswordField("currentPassword", event.target.value)
                 }
-                error={passwordErrors.newPassword}
-                placeholder="At least 8 characters"
-                autoComplete="new-password"
+                error={passwordErrors.currentPassword}
+                placeholder="Enter your current password"
+                autoComplete="current-password"
               />
 
-              <Input
-                label="Confirm new password"
-                name="confirmPassword"
-                type="password"
-                value={passwordForm.confirmPassword}
-                onChange={(event) =>
-                  updatePasswordField("confirmPassword", event.target.value)
+              <button
+                type="button"
+                onClick={() => setShowCurrentPassword((current) => !current)}
+                className="absolute right-3 bottom-2  inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                aria-label={
+                  showCurrentPassword
+                    ? "Hide current password"
+                    : "Show current password"
                 }
-                error={passwordErrors.confirmPassword}
-                placeholder="Repeat your new password"
-                autoComplete="new-password"
-              />
+              >
+                {showCurrentPassword ? (
+                  <EyeOff className="size-4" aria-hidden="true" />
+                ) : (
+                  <Eye className="size-4" aria-hidden="true" />
+                )}
+              </button>
             </div>
 
+            <div className="grid gap-5 sm:grid-cols-2">
+              {/* New Password */}
+              <div className="relative">
+                <Input
+                  label="New password"
+                  name="newPassword"
+                  type={showNewPassword ? "text" : "password"}
+                  value={passwordForm.newPassword}
+                  onChange={(event) =>
+                    updatePasswordField("newPassword", event.target.value)
+                  }
+                  error={passwordErrors.newPassword}
+                  placeholder="At least 8 characters"
+                  autoComplete="new-password"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword((current) => !current)}
+                  className="absolute right-3 top-2  inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  aria-label={
+                    showNewPassword ? "Hide new password" : "Show new password"
+                  }
+                >
+                  {showNewPassword ? (
+                    <EyeOff className="size-4" aria-hidden="true" />
+                  ) : (
+                    <Eye className="size-4" aria-hidden="true" />
+                  )}
+                </button>
+              </div>
+
+              {/* Confirm Password */}
+              <div className="relative">
+                <Input
+                  label="Confirm new password"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={passwordForm.confirmPassword}
+                  onChange={(event) =>
+                    updatePasswordField("confirmPassword", event.target.value)
+                  }
+                  error={passwordErrors.confirmPassword}
+                  placeholder="Repeat your new password"
+                  autoComplete="new-password"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((current) => !current)}
+                  className="absolute right-3 top-2 inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  aria-label={
+                    showConfirmPassword
+                      ? "Hide confirm password"
+                      : "Show confirm password"
+                  }
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="size-4" aria-hidden="true" />
+                  ) : (
+                    <Eye className="size-4" aria-hidden="true" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Change Password */}
             <div className="flex justify-end border-t border-border pt-6">
               <Button
                 type="submit"
