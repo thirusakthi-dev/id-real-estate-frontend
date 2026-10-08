@@ -1,11 +1,15 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
+
 import QueryProvider from "@/providers/query-provider";
 import ThemeProvider from "@/providers/theme-provider";
+
 import { createMetadata } from "@/lib/metadata";
+
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Toast from "@/components/ui/toast";
+import AiAssistant from "@/components/ai/ai-assistant";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -26,14 +30,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${poppins.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col">
         <ThemeProvider>
           <QueryProvider>
             <Header />
+
             {children}
+
             <Footer />
 
             <Toast />
+
+            <AiAssistant />
           </QueryProvider>
         </ThemeProvider>
       </body>
