@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const exploreLinks = [
   {
@@ -25,10 +26,23 @@ export default function Footer() {
           <div className="max-w-sm">
             <Link
               href="/"
-              aria-label="Real Estate home"
-              className="text-xl font-semibold tracking-tight text-foreground"
+              aria-label="ID Real Estate home"
+              className="flex shrink-0 gap-1 items-center"
             >
-              Real<span className="text-accent">Estate</span>
+              <Image
+                src="/logo.png"
+                alt="ID Real Estate"
+                width={150}
+                height={40}
+                priority
+                className="h-10 w-auto object-contain"
+              />
+              <div
+                aria-label="Real Estate home"
+                className="text-xl font-semibold tracking-tight text-foreground"
+              >
+                Real<span className="text-accent">Estate</span>
+              </div>
             </Link>
 
             <p className="mt-4 text-sm leading-6 text-muted-foreground">

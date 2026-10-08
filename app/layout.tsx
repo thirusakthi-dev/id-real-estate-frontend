@@ -9,8 +9,8 @@ import { createMetadata } from "@/lib/metadata";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Toast from "@/components/ui/toast";
-import AiAssistant from "@/components/ai/ai-assistant";
 import AiChatWidget from "@/components/ai/ai-chat-widget";
+import OnlineStatus from "@/components/ui/online-status";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -34,15 +34,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           <QueryProvider>
+            <OnlineStatus />
             <Header />
-
             {children}
-
             <Footer />
-
             <Toast />
-
-            {/* <AiAssistant /> */}
             <AiChatWidget />
           </QueryProvider>
         </ThemeProvider>

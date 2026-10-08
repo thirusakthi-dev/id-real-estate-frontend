@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const SITE_NAME = "RealEstate";
+const SITE_NAME = "ID Real Estate";
 
 const SITE_DESCRIPTION = "Find properties for sale and rent across India.";
 
@@ -20,6 +20,24 @@ export function createMetadata({
   return {
     title: fullTitle,
     description,
+
+    icons: {
+      icon: [
+        {
+          url: "/favicon-32x32.png",
+          type: "image/png",
+          sizes: "32x32",
+        },
+        {
+          url: "/favicon-16x16.png",
+          type: "image/png",
+          sizes: "16x16",
+        },
+      ],
+      apple: "/icons/icon-192.png",
+    },
+
+    manifest: "/manifest.webmanifest",
 
     openGraph: {
       title: fullTitle,

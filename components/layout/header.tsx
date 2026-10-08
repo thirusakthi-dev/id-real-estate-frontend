@@ -1,6 +1,15 @@
 "use client";
 
-import { ChevronDown, Heart, LogOut, Menu, User, X } from "lucide-react";
+import {
+  ChevronDown,
+  DivideSquare,
+  Heart,
+  LogOut,
+  Menu,
+  User,
+  X,
+} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 
@@ -62,10 +71,23 @@ export default function Header() {
         {/* Logo */}
         <Link
           href="/"
-          aria-label="Real Estate home"
-          className="shrink-0 text-lg font-semibold tracking-tight text-foreground sm:text-xl"
+          aria-label="ID Real Estate home"
+          className="flex shrink-0 gap-1 items-center"
         >
-          Real<span className="text-accent">Estate</span>
+          <Image
+            src="/logo.png"
+            alt="ID Real Estate"
+            width={150}
+            height={40}
+            priority
+            className="h-10 w-auto object-contain"
+          />
+          <div
+            aria-label="Real Estate home"
+            className="text-xl font-semibold tracking-tight text-foreground"
+          >
+            Real<span className="text-accent">Estate</span>
+          </div>
         </Link>
 
         {/* Desktop navigation */}
@@ -218,6 +240,7 @@ export default function Header() {
 
           {isLoggedIn && (
             <>
+              {/* Favorites */}
               <Link
                 href="/profile/favorites"
                 aria-label="Favorites"
@@ -242,6 +265,7 @@ export default function Header() {
                 <Heart className="size-5" aria-hidden="true" />
               </Link>
 
+              {/* Profile */}
               <Link
                 href="/profile"
                 aria-label="Profile"
