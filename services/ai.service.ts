@@ -6,6 +6,18 @@ export type AiChatMessage = {
   message: string;
 };
 
+export type AiFilters = {
+  city?: string;
+  location?: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  propertyType?: string;
+  listingType?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  limit?: number;
+};
+
 export type AiResponse =
   | {
       type: "text";
@@ -15,31 +27,13 @@ export type AiResponse =
       type: "count";
       message: string;
       count: number;
-      filters: {
-        city?: string;
-        location?: string;
-        bedrooms?: number;
-        bathrooms?: number;
-        propertyType?: string;
-        listingType?: string;
-        minPrice?: number;
-        maxPrice?: number;
-      };
+      filters: AiFilters;
     }
   | {
       type: "properties";
       message: string;
       properties: Property[];
-      filters: {
-        city?: string;
-        location?: string;
-        bedrooms?: number;
-        bathrooms?: number;
-        propertyType?: string;
-        listingType?: string;
-        minPrice?: number;
-        maxPrice?: number;
-      };
+      filters: AiFilters;
     }
   | {
       type: "property";

@@ -10,6 +10,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Toast from "@/components/ui/toast";
 import AiAssistant from "@/components/ai/ai-assistant";
+import AiChatWidget from "@/components/ai/ai-chat-widget";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -41,7 +42,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
             <Toast />
 
-            <AiAssistant />
+            {/* <AiAssistant /> */}
+            <AiChatWidget />
           </QueryProvider>
         </ThemeProvider>
       </body>
