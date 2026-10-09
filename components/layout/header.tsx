@@ -72,7 +72,7 @@ export default function Header() {
         <Link
           href="/"
           aria-label="ID Real Estate home"
-          className="flex shrink-0 gap-1 items-center"
+          className="flex shrink-0 gap-0.5 items-center"
         >
           <Image
             src="/logo.png"
