@@ -266,7 +266,7 @@ export default function Header() {
               </Link>
 
               {/* Profile */}
-              <Link
+              {/* <Link
                 href="/profile"
                 aria-label="Profile"
                 className="
@@ -287,7 +287,7 @@ export default function Header() {
                 "
               >
                 <User className="size-5" aria-hidden="true" />
-              </Link>
+              </Link> */}
             </>
           )}
 
